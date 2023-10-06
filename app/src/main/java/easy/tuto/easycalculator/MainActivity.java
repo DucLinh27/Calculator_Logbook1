@@ -11,68 +11,68 @@ import org.mozilla.javascript.Scriptable;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
-    TextView resultTv,solutionTv;
-    MaterialButton buttonC,buttonBrackOpen,buttonBrackClose;
-    MaterialButton buttonDivide,buttonMultiply,buttonPlus,buttonMinus,buttonEquals;
-    MaterialButton button0,button1,button2,button3,button4,button5,button6,button7,button8,button9;
-    MaterialButton buttonAC,buttonDot;
+    TextView resultCalculaor, solutionCalculator;
+    MaterialButton buttonCalulatorC, buttonCalulatorBrackOpen, buttonCalulatorBrackClose;
+    MaterialButton buttonCalulatorDivide, buttonCalulatorMultiply, buttonCalulatorPlus, buttonCalulatorMinus, buttonCalulatorEquals;
+    MaterialButton buttonCalulator0, buttonCalulator1, buttonCalulator2, buttonCalulator3, buttonCalulator4, buttonCalulator5, buttonCalulator6, buttonCalulator7, buttonCalulator8, buttonCalulator9;
+    MaterialButton buttonCalulatorAC, buttonCalulatorDot;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-       resultTv = findViewById(R.id.result_tv);
-       solutionTv = findViewById(R.id.solution_tv);
+       resultCalculaor = findViewById(R.id.result_calculator);
+       solutionCalculator = findViewById(R.id.solution_calculator);
 
-       assignId(buttonC,R.id.button_c);
-       assignId(buttonBrackOpen,R.id.button_open_bracket);
-       assignId(buttonBrackClose,R.id.button_close_bracket);
-       assignId(buttonDivide,R.id.button_divide);
-       assignId(buttonMultiply,R.id.button_multiply);
-       assignId(buttonPlus,R.id.button_plus);
-       assignId(buttonMinus,R.id.button_minus);
-       assignId(buttonEquals,R.id.button_equals);
-       assignId(button0,R.id.button_0);
-       assignId(button1,R.id.button_1);
-       assignId(button2,R.id.button_2);
-       assignId(button3,R.id.button_3);
-       assignId(button4,R.id.button_4);
-       assignId(button5,R.id.button_5);
-       assignId(button6,R.id.button_6);
-       assignId(button7,R.id.button_7);
-       assignId(button8,R.id.button_8);
-       assignId(button9,R.id.button_9);
-       assignId(buttonAC,R.id.button_ac);
-       assignId(buttonDot,R.id.button_dot);
+       assignCalculatorId(buttonCalulatorC,R.id.buttonCal_c);
+       assignCalculatorId(buttonCalulatorBrackOpen,R.id.buttonCal_open_bracket);
+       assignCalculatorId(buttonCalulatorBrackClose,R.id.buttonCal_close_bracket);
+       assignCalculatorId(buttonCalulatorDivide,R.id.buttonCal_divide);
+       assignCalculatorId(buttonCalulatorMultiply,R.id.buttonCal_multiply);
+       assignCalculatorId(buttonCalulatorPlus,R.id.buttonCal_plus);
+       assignCalculatorId(buttonCalulatorMinus,R.id.buttonCal_minus);
+       assignCalculatorId(buttonCalulatorEquals,R.id.buttonCal_equals);
+       assignCalculatorId(buttonCalulator0,R.id.buttonCal_0);
+       assignCalculatorId(buttonCalulator1,R.id.buttonCal_1);
+       assignCalculatorId(buttonCalulator2,R.id.buttonCal_2);
+       assignCalculatorId(buttonCalulator3,R.id.buttonCal_3);
+       assignCalculatorId(buttonCalulator4,R.id.buttonCal_4);
+       assignCalculatorId(buttonCalulator5,R.id.buttonCal_5);
+       assignCalculatorId(buttonCalulator6,R.id.buttonCal_6);
+       assignCalculatorId(buttonCalulator7,R.id.buttonCal_7);
+       assignCalculatorId(buttonCalulator8,R.id.buttonCal_8);
+       assignCalculatorId(buttonCalulator9,R.id.buttonCal_9);
+       assignCalculatorId(buttonCalulatorAC,R.id.buttonCal_ac);
+       assignCalculatorId(buttonCalulatorDot,R.id.buttonCal_dot);
     }
-    void assignId(MaterialButton btn,int id){
-        btn = findViewById(id);
-        btn.setOnClickListener(this);
+    void assignCalculatorId(MaterialButton btnCal, int id){
+        btnCal = findViewById(id);
+        btnCal.setOnClickListener(this);
     }
     @Override
     public void onClick(View view) {
-        MaterialButton button =(MaterialButton) view;
-        String buttonText = button.getText().toString();
-        String dataToCalculate = solutionTv.getText().toString();
+        MaterialButton buttonCal =(MaterialButton) view;
+        String buttonCalText = buttonCal.getText().toString();
+        String dataToCalculator = solutionCalculator.getText().toString();
 
-        if(buttonText.equals("AC")){
-            solutionTv.setText("");
-            resultTv.setText("0");
-        } else if(buttonText.equals("=")){
-            String finalResult = getResult(dataToCalculate);
-            if (!finalResult.equals("Err")) {
-                resultTv.setText(finalResult);
+        if(buttonCalText.equals("AC")){
+            solutionCalculator.setText("");
+            resultCalculaor.setText("0");
+        } else if(buttonCalText.equals("=")){
+            String resultCalFinal = getResult(dataToCalculator);
+            if (!resultCalFinal.equals("Error")) {
+                resultCalculaor.setText(resultCalFinal);
             } else {
-                resultTv.setText("Err");
+                resultCalculaor.setText("Error");
             }
-        } else if(buttonText.equals("C")){
-            if (!dataToCalculate.isEmpty()) {
-                dataToCalculate = dataToCalculate.substring(0, dataToCalculate.length() - 1);
-                solutionTv.setText(dataToCalculate);
+        } else if(buttonCalText.equals("C")){
+            if (!dataToCalculator.isEmpty()) {
+                dataToCalculator = dataToCalculator.substring(0, dataToCalculator.length() - 1);
+                solutionCalculator.setText(dataToCalculator);
             }
         } else {
-            dataToCalculate = dataToCalculate + buttonText;
-            solutionTv.setText(dataToCalculate);
+            dataToCalculator = dataToCalculator + buttonCalText;
+            solutionCalculator.setText(dataToCalculator);
         }
     }
         String getResult(String data){
@@ -83,16 +83,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             context.setOptimizationLevel(-1);
             Scriptable scriptable = context.initStandardObjects();
             // Khởi tạo đối tượng Scriptable để thực hiện đánh giá biểu thức
-            String finalResult =  context.evaluateString(scriptable,data,"Javascript",
+            String finalResultCal =  context.evaluateString(scriptable,data,"Javascript",
                     1,null).toString();
 
             // Nếu kết quả kết thúc bằng ".0," loại bỏ phần thập phân
-            if(finalResult.endsWith(".0")){
-                finalResult = finalResult.replace(".0","");
+            if(finalResultCal.endsWith(".0")){
+                finalResultCal = finalResultCal.replace(".0","");
             }
-            return finalResult;
+            return finalResultCal;
         }catch (Exception e){
-            return "Err";
+            return "Error";
         }
     }
 }
